@@ -7,7 +7,7 @@ const errorHandler = require('./middlewares/errorHandler');
 const { createUser, login } = require('./controllers/users');
 const routes = require('./routes');
 // Слушаем 3000 порт
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
 // eslint-disable-next-line import/order
 const mongoose = require('mongoose');
 // eslint-disable-next-line import/order
