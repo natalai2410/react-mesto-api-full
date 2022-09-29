@@ -13,7 +13,7 @@ export const headers = {
 };
 
 // export const baseUrl = 'http://localhost:3001/';
-// export const baseUrlAuth  =  'http://localhost:3001/';
+// export const baseUrlAuth  =  'http://localhost:3001';
 // export const headers = {
 //     "Content-Type": "application/json",
 // };
