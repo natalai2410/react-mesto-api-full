@@ -7,7 +7,8 @@ const errorHandler = require('./middlewares/errorHandler');
 const { createUser, login } = require('./controllers/users');
 const routes = require('./routes');
 // Слушаем 3000 порт
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, FRONT_URL = 'http://localhost:3000' } = process.env;
+
 // eslint-disable-next-line import/order
 const mongoose = require('mongoose');
 // eslint-disable-next-line import/order
@@ -19,6 +20,9 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 // eslint-disable-next-line import/order
 const { logger } = require('express-winston');
 
+// eslint-disable-next-line import/no-unresolved
+const cors = require('cors');
+
 const app = express();
 
 // подключаемся к серверу mongo
@@ -29,6 +33,14 @@ async function main() {
   });
 
   app.use(express.json());
+
+  app.use(
+    cors({
+      origin: FRONT_URL,
+      credentials: true,
+    }),
+  );
+
   app.use(cookieParser());
 
   app.get('/crash-test', () => {
