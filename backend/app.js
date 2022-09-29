@@ -21,7 +21,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { logger } = require('express-winston');
 
 // eslint-disable-next-line import/no-unresolved,import/order
-// const cors = require('cors');
+ const cors = require('cors');
 
 const app = express();
 
@@ -33,7 +33,10 @@ async function main() {
   });
 
   app.use(express.json());
-  // app.use(cors());
+  app.use(cors({
+    origin: 'http://zvyagina.students.nomorepartiesxyz.ru/',
+    credentials: true,
+  }));
   app.use(cookieParser());
 
   app.get('/crash-test', () => {
