@@ -24,19 +24,20 @@ export const authorize = (email, password) => {
     return fetch(`${baseUrlAuth}/signin`, {
         method: "POST",
         headers,
+        credentials: "include",
         body: JSON.stringify({email: email, password: password}),
     })
         .then(response => {
-            returnResult(response)});
+           return  returnResult(response)});
 };
 
 // проверка валидности токена и получения email для вставки в шапку сайта
 export const getContent = (jwt) => {
     return fetch(`${baseUrlAuth}/users/me`, {
         method: "GET",
+        credentials: 'include',
         headers: {
             ...headers,
-            Authorization: `Bearer ${jwt}`,
         },
     })
         .then(response => returnResult(response));

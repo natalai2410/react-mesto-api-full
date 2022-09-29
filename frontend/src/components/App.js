@@ -59,7 +59,7 @@ function App() {
         if (!jwt) {
             return
         }
-        auth.getContent(jwt)
+        auth.getContent()
             .then((res) => {
                 if (res) {
                     setLoggedIn(true);
@@ -67,7 +67,7 @@ function App() {
                 }
             })
             .catch((err) => {
-                console.error(err);
+                console.log(err);
             });
     };
 
@@ -80,13 +80,15 @@ function App() {
     }, [loggedIn]);
 
     const onLogin = (email, password) => {
-        return auth.authorize(email, password)
+         auth.authorize(email, password)
             .then((res) => {
+                console.log(res);
                 localStorage.setItem("jwt", res.token);
                 setLoggedIn(true);
                 setEmail(email);
-                history.push("/");
-            }).catch(() => {
+                history.go("/");
+            }).catch((err) => {
+                console.log(err);
                 setPopupImage(fail);
                 setPopupTitle("Что-то пошло не так!\n" +
                     "Попробуйте ещё раз.");
