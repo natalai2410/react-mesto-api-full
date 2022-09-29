@@ -20,7 +20,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 // eslint-disable-next-line import/order
 const { logger } = require('express-winston');
 
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-unresolved,import/order
 const cors = require('cors');
 
 const app = express();
