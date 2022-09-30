@@ -26,39 +26,38 @@ const app = express();
 
 require('dotenv').config();
 
+app.use(express.json());
+app.use(cors({
+  origin: 'http://zvyagina.students.nomorepartiesxyz.ru/',
+  // origin: 'http://localhost:3001',
+  credentials: true,
+}));
+// app.use(cookieParser());
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
+app.use(requestLogger); // подключаем логгер запросов
+app.post('/signin', validationLogin, login);
+app.post('/signup', validationCreateUser, createUser);
+
+app.use(routes);
+
+app.use(errorLogger); // подключаем логгер ошибок
+app.use(logger);
+
+app.use(errors());
+app.use(errorHandler);
+
 // подключаемся к серверу mongo
 async function main() {
   await mongoose.connect('mongodb://localhost:27017/mestodb', {
     useNewUrlParser: true,
     useUnifiedTopology: false,
   });
-
-  app.use(express.json());
-  app.use(cors({
-    origin: 'http://zvyagina.students.nomorepartiesxyz.ru/',
-    // origin: 'http://localhost:3001',
-    credentials: true,
-  }));
-  // app.use(cookieParser());
-
-  app.get('/crash-test', () => {
-    setTimeout(() => {
-      throw new Error('Сервер сейчас упадёт');
-    }, 0);
-  });
-
-  app.use(requestLogger); // подключаем логгер запросов
-  app.post('/signin', validationLogin, login);
-  app.post('/signup', validationCreateUser, createUser);
-
-  app.use(routes);
-
-  app.use(errorLogger); // подключаем логгер ошибок
-  app.use(logger);
-
-  app.use(errors());
-  app.use(errorHandler);
-
   app.listen(PORT, () => {
     // Если всё работает, консоль покажет, какой порт приложение слушает
     console.log(`App listening on port ${PORT}`);
