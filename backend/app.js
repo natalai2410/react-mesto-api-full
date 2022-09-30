@@ -24,6 +24,8 @@ const cors = require('cors');
 
 const app = express();
 
+require('dotenv').config();
+
 // подключаемся к серверу mongo
 async function main() {
   await mongoose.connect('mongodb://localhost:27017/mestodb', {

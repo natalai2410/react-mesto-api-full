@@ -5,6 +5,8 @@ const User = require('../models/user');
 
 const { REQUEST_OK } = require('../errors/errors');
 
+const { JWT_SECRET, NODE_ENV } = process.env;
+
 // цекнтрализованная  обработка  ошибок
 const NotFoundError = require('../errors/notFoundError');
 const ValidationError = require('../errors/validationError');
@@ -105,7 +107,7 @@ const login = (req, res, next) => {
   User.findUserByCredentials(email, password)
     .then((user) => {
       // Методу sign мы передали два аргумента: пейлоуд токена и секретный ключ подписи:
-      const token = jwt.sign({ _id: user._id }, 'super-secret_key', { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, `${NODE_ENV === 'production' ? JWT_SECRET : 'super-secret_key'}`, { expiresIn: '7d' });
       res.send({ token });
     })
     .catch(next);
