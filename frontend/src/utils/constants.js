@@ -1,5 +1,5 @@
-export const baseUrl =       'http://api.zvyagina.students.nomoredomains.club/';
-export const baseUrlAuth  =  'http://api.zvyagina.students.nomoredomains.club';
+export const baseUrl =       'https://api.zvyagina.students.nomoredomains.club/';
+export const baseUrlAuth  =  'https://api.zvyagina.students.nomoredomains.club';
 
 
 // export const baseUrl = 'http://localhost:3000/';
