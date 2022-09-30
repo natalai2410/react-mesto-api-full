@@ -1,4 +1,4 @@
-export const baseUrl = 'http://api.zvyagina.students.nomorepartiesxyz.ru/';
+export const baseUrl =       'http://api.zvyagina.students.nomorepartiesxyz.ru/';
 export const baseUrlAuth  =  'http://api.zvyagina.students.nomorepartiesxyz.ru';
 export const headers = {
     "Content-Type": "application/json",
