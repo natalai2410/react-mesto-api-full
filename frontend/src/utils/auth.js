@@ -2,7 +2,6 @@ import React from 'react';
 import {baseUrlAuth, headers} from '../utils/constants';
 
 const returnResult = (result) => {
-    console.log(result);
     if (result.ok) {
         return result.json();
     }
@@ -24,7 +23,6 @@ export const authorize = (email, password) => {
     return fetch(`${baseUrlAuth}/signin`, {
         method: "POST",
         headers,
-        credentials: "include",
         body: JSON.stringify({email: email, password: password}),
     })
         .then(response => {
@@ -35,7 +33,6 @@ export const authorize = (email, password) => {
 export const getContent = (jwt) => {
     return fetch(`${baseUrlAuth}/users/me`, {
         method: "GET",
-        credentials: 'include',
         headers: {
             ...headers,
         },

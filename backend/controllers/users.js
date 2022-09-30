@@ -106,12 +106,6 @@ const login = (req, res, next) => {
     .then((user) => {
       // Методу sign мы передали два аргумента: пейлоуд токена и секретный ключ подписи:
       const token = jwt.sign({ _id: user._id }, 'super-secret_key', { expiresIn: '7d' });
-      res.cookie('jwt', token, {
-        maxAge: 3600000,
-        httpOnly: true,
-        sameSite: true,
-      });
-      // вернём токен
       res.send({ token });
     })
     .catch(next);

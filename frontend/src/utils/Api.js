@@ -15,10 +15,17 @@ class Api {
         return Promise.reject(`Упс... Что-то пошло не так: ${result.statusText}`);
     }
 
+    _getHeaders() {
+        const jwt = localStorage.getItem('jwt');
+        return {
+            'Authorization': `Bearer ${jwt}`,
+            ...this._headers,
+        };
+    }
+
     getInitialCards() {
         return fetch(`${this._baseUrl}cards`, {
-            headers: this._headers,
-            credentials: "include",
+            headers: this._getHeaders(),
         })
             .then(result => {
                 return this._returnResult(result);
@@ -27,8 +34,7 @@ class Api {
 
     getUserInfo = () => {
         return fetch(`${this._baseUrl}users/me`, {
-            headers: this._headers,
-            credentials: "include",
+            headers: this._getHeaders(),
         })
             .then(result => {
                 return this._returnResult(result);
@@ -38,8 +44,7 @@ class Api {
     sendUserInfo = (name, job) => {
         return fetch(`${this._baseUrl}users/me`, {
             method: 'PATCH',
-            headers: this._headers,
-            credentials: "include",
+            headers: this._getHeaders(),
             body: JSON.stringify({
                 name: name,
                 about: job
@@ -53,8 +58,7 @@ class Api {
     addNewCard = (name, link) => {
         return fetch(`${this._baseUrl}cards`, {
             method: 'POST',
-            headers: this._headers,
-            credentials: "include",
+            headers: this._getHeaders(),
             body: JSON.stringify({
                 name: name,
                 link: link
@@ -68,8 +72,7 @@ class Api {
     deleteCard = (cardId) => {
         return fetch(`${this._baseUrl}cards/${cardId}`, {
             method: 'DELETE',
-            credentials: "include",
-            headers: this._headers,
+            headers: this._getHeaders(),
         })
             .then(result => {
                 return this._returnResult(result);
@@ -79,8 +82,7 @@ class Api {
     putLike = (cardId) => {
         return fetch(`${this._baseUrl}cards/${cardId}/likes`, {
             method: 'PUT',
-            credentials: "include",
-            headers: this._headers,
+            headers: this._getHeaders(),
         })
             .then(result => {
                 return this._returnResult(result);
@@ -90,8 +92,7 @@ class Api {
     deleteLike = (cardId) => {
         return fetch(`${this._baseUrl}cards/${cardId}/likes`, {
             method: 'DELETE',
-            credentials: "include",
-            headers: this._headers,
+            headers: this._getHeaders(),
         })
             .then(result => {
                 return this._returnResult(result);
@@ -101,8 +102,7 @@ class Api {
     changeAvatar = (avatar) => {
         return fetch(`${this._baseUrl}users/me/avatar`, {
             method: 'PATCH',
-            headers: this._headers,
-            credentials: "include",
+            headers: this._getHeaders(),
             body: JSON.stringify({
                 avatar: avatar,
             }),
@@ -115,7 +115,6 @@ class Api {
 export const api = new Api({
     baseUrl: baseUrl,
     headers: {
-        authorization: '542751f4-2e93-4fad-82e3-6e5a73ce5b6d',
         'Content-Type': 'application/json'
     }
 });
