@@ -13,7 +13,9 @@ const auth = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, `${NODE_ENV === 'production' ? JWT_SECRET : 'super-secret_key'}`);
+    // eslint-disable-next-line max-len
+    // payload = jwt.verify(token, `${NODE_ENV === 'production' ? JWT_SECRET : 'super-secret_key'}`);
+    payload = jwt.verify(token, 'super-secret_key');
     req.user = payload;
   } catch (err) {
     throw new AuthError('Необходима авторизация');
