@@ -28,7 +28,7 @@ require('dotenv').config();
 
 app.use(express.json());
 app.use(cors({
-  origin: 'http://zvyagina.students.nomoredomains.club/',
+  origin: 'https://zvyagina.students.nomoredomains.club/',
   // origin: 'http://localhost:3001',
   credentials: true,
 }));
