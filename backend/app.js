@@ -28,10 +28,11 @@ require('dotenv').config();
 
 app.use(express.json());
 app.use(cors({
-  origin: 'http://zvyagina.students.nomorepartiesxyz.ru/',
+  origin: 'http://zvyagina.students.nomoredomains.club/',
   // origin: 'http://localhost:3001',
   credentials: true,
 }));
+
 // app.use(cookieParser());
 
 app.get('/crash-test', () => {
