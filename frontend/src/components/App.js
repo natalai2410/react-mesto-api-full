@@ -29,7 +29,6 @@ import Login from './Login'
 import Switch from "react-router-dom/es/Switch";
 import Route from "react-router-dom/es/Route";
 
-
 import Redirect from "react-router-dom/es/Redirect";
 
 
@@ -48,21 +47,21 @@ function App() {
     const [email, setEmail] = React.useState(null);
     const history = useHistory();
 
-    //_______________
     const [popupImage, setPopupImage] = React.useState("");
     const [popupTitle, setPopupTitle] = React.useState("");
     const [infoTooltip, setInfoTooltip] = React.useState(false);
-    //_______________
+
 
     const tokenCheck = () => {
         const jwt = localStorage.getItem('jwt');
-        console.log(jwt);
         if (!jwt) {
             return
         }
-        auth.getContent()
+
+        auth.getContent(jwt)
             .then((res) => {
                 if (res) {
+                    history.push('/')
                     setLoggedIn(true);
                     setEmail(res.data.email);
                 }
@@ -74,27 +73,34 @@ function App() {
 
     React.useEffect(() => {
         tokenCheck();
-    }, []);
+    }, [tokenCheck]);
 
     React.useEffect(() => {
-        history.push('/');
+        if (loggedIn) {
+            Promise.all([api.getUserInfo(), api.getInitialCards()])
+                .then(([userData, cards]) => {
+                    setCurrentUser(userData);
+                    setCards(cards);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     }, [loggedIn]);
 
     const onLogin = (email, password) => {
-         auth.authorize(email, password)
+        auth.authorize(email, password)
             .then((res) => {
-                console.log(jwt)
                 localStorage.setItem("jwt", res.token);
                 setLoggedIn(true);
                 setEmail(email);
-                history.go("/");
+                history.push('/');
             }).catch((err) => {
-                console.log(err);
-                setPopupImage(fail);
-                setPopupTitle("Что-то пошло не так!\n" +
-                    "Попробуйте ещё раз.");
-                handleInfoTooltip();
-            });
+            setPopupImage(fail);
+            setPopupTitle("Что-то пошло не так!\n" +
+                "Попробуйте ещё раз.");
+            handleInfoTooltip();
+        });
     };
 
     const onRegister = (email, password) => {
@@ -115,18 +121,6 @@ function App() {
         setEmail(null);
         localStorage.removeItem("jwt");
     };
-
-    //-------------------------------------------------//
-    React.useEffect(() => {
-        Promise.all([api.getUserInfo(), api.getInitialCards()])
-            .then(([userData, cards]) => {
-                setCurrentUser(userData);
-                setCards(cards);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, []);
 
     function handleInfoTooltip() {
         setInfoTooltip(true);
@@ -239,7 +233,7 @@ function App() {
                             <Header title="Выйти" mail={email} onClick={onLoggedOut} route=""/>
                             <ProtectedRoute exact path="/"
                                             component={Main}
-                                            LoggedIn={loggedIn}
+                                            loggedIn={loggedIn}
                                             onEditProfile={handleEditProfileClick}
                                             onAddPlace={handleAddPlaceClick}
                                             onEditAvatar={handleEditAvatarClick}
@@ -249,11 +243,6 @@ function App() {
                                             onCardDelete={handleCardDelete}
                             />
                         </Route>
-
-                        <Route exact path="*">
-                            {loggedIn ? <Redirect to="/"/> : <Redirect to="/signin"/>}
-                        </Route>
-
                     </Switch>
 
                     {loggedIn && < Footer/>}

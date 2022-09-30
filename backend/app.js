@@ -13,9 +13,8 @@ const { PORT = 3000 } = process.env;
 const mongoose = require('mongoose');
 // eslint-disable-next-line import/order
 const { errors } = require('celebrate');
-// eslint-disable-next-line import/order
-// const cookieParser = require('cookie-parser');
 
+// eslint-disable-next-line import/order
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 // eslint-disable-next-line import/order
 const { logger } = require('express-winston');
@@ -34,8 +33,8 @@ async function main() {
 
   app.use(express.json());
   app.use(cors({
-    // origin: 'http://zvyagina.students.nomorepartiesxyz.ru/',
-    origin: 'http://localhost:3001',
+    origin: 'http://zvyagina.students.nomorepartiesxyz.ru/',
+    // origin: 'http://localhost:3001',
     credentials: true,
   }));
   // app.use(cookieParser());
