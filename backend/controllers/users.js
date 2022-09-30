@@ -109,8 +109,8 @@ const login = (req, res, next) => {
       // Методу sign мы передали два аргумента: пейлоуд токена и секретный ключ подписи:
 
       // eslint-disable-next-line max-len
-      // const token = jwt.sign({ _id: user._id }, `${NODE_ENV === 'production' ? JWT_SECRET : 'super-secret_key'}`, { expiresIn: '7d' });
-      const token = jwt.sign({ _id: user._id }, 'super-secret_key', { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, `${NODE_ENV === 'production' ? JWT_SECRET : 'super-secret_key'}`, { expiresIn: '7d' });
+      // const token = jwt.sign({ _id: user._id }, 'super-secret_key', { expiresIn: '7d' });
       res.send({ token });
     })
     .catch(next);
