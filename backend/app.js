@@ -32,7 +32,7 @@ const allowedCors = [
   'http://localhost:3000',
   'http://localhost:3001',
   'http://zvyagina.students.nomoredomains.club',
-  'httS://zvyagina.students.nomoredomains.club',
+  'https://zvyagina.students.nomoredomains.club',
   // 'http://api.zvyagina.students.nomoredomains.club',
   // 'https://api.zvyagina.students.nomoredomains.club',
 ];
