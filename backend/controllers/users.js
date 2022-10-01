@@ -27,7 +27,7 @@ const getUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь по указанному _id не найден');
       }
-      return res.status(REQUEST_OK).send(user);
+      return res.send(user);
     })
     .catch((err) => next(err));
 };

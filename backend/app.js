@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const {
   validationCreateUser,
@@ -16,15 +18,11 @@ const { errors } = require('celebrate');
 
 // eslint-disable-next-line import/order
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-// eslint-disable-next-line import/order
-const { logger } = require('express-winston');
 
 // eslint-disable-next-line import/no-unresolved,import/order
 const cors = require('cors');
 
 const app = express();
-
-require('dotenv').config();
 
 app.use(express.json());
 
@@ -58,7 +56,6 @@ app.post('/signup', validationCreateUser, createUser);
 app.use(routes);
 
 app.use(errorLogger); // подключаем логгер ошибок
-app.use(logger);
 
 app.use(errors());
 app.use(errorHandler);
