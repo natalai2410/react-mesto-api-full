@@ -8,5 +8,5 @@
 https://github.com/natalai2410/react-mesto-api-full
   
 IP 130.193.53.155
-Frontend https://zvyagina.students.nomorepartiesxyz.ru
-Backend https://api.zvyagina.students.nomorepartiesxyz.ru
+Frontend https://zvyagina.students.nomoredomains.club
+Backend https://api.zvyagina.students.nomoredomains.club
