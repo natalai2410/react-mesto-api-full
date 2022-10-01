@@ -1,5 +1,5 @@
 import React from 'react';
-import {baseUrlAuth, headers} from '../utils/constants';
+import {baseUrl} from '../utils/constants';
 
 const returnResult = (result) => {
     if (result.ok) {
@@ -8,11 +8,9 @@ const returnResult = (result) => {
     return Promise.reject(`Упс... Что-то пошло не так: ${result.statusText}`);
 };
 
-
-
 //регистрации
 export const register = (email, password) => {
-    return fetch(`${baseUrlAuth}/signup`, {
+    return fetch(`${baseUrl}signup`, {
         method: "POST",
         headers: {
             'Accept': 'application/json',
@@ -25,7 +23,7 @@ export const register = (email, password) => {
 
 //авторизация
 export const authorize = (email, password) => {
-    return fetch(`${baseUrlAuth}/signin`, {
+    return fetch(`${baseUrl}signin`, {
         method: "POST",
         headers: {
             'Accept': 'application/json',
@@ -34,12 +32,13 @@ export const authorize = (email, password) => {
         body: JSON.stringify({email: email, password: password}),
     })
         .then(response => {
-           return  returnResult(response)});
+            return returnResult(response)
+        });
 };
 
 // проверка валидности токена и получения email для вставки в шапку сайта
 export const getContent = (jwt) => {
-    return fetch(`${baseUrlAuth}/users/me`, {
+    return fetch(`${baseUrl}users/me`, {
         method: "GET",
         headers: {
             'Accept': 'application/json',
