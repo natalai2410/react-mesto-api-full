@@ -28,13 +28,19 @@ require('dotenv').config();
 
 app.use(express.json());
 
-// app.use(cors({
-//    // origin: 'https://zvyagina.students.nomoredomains.club/',
-//   origin: 'http://localhost:3001',
-//   credentials: true,
-// }));
+// const allowedCors = [
+//   'http://localhost:3000',
+//   'http://localhost:3001',
+//   'http://zvyagina.students.nomoredomains.club/',
+//   'http://api.zvyagina.students.nomoredomains.club/',
+//   'https://api.zvyagina.students.nomoredomains.club/',
+// ];
 
-app.use(cors);
+app.use(cors({
+  origin: 'https://zvyagina.students.nomoredomains.club/',
+  // origin: allowedCors,
+  credentials: true,
+}));
 
 // app.use(cookieParser());
 
